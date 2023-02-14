@@ -1,5 +1,6 @@
 package com.example.displayimageresourses
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,18 +18,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.button1.setOnClickListener {
-            displayImageResource(R.drawable.monster01)
+            displayImageAsset("monster01.webp")
         }
         binding.button2.setOnClickListener {
-            displayImageResource(R.drawable.monster02)
+            displayImageAsset("monster02.webp")
+
         }
         binding.button3.setOnClickListener {
-            displayImageResource(R.drawable.monster03)
+            displayImageAsset("monster03.webp")
+
         }
     }
 
-    private fun displayImageResource(resId: Int) {
-        binding.monsterImage.setImageResource(resId)
+//    private fun displayImageResource(resId: Int) {
+//        binding.monsterImage.setImageResource(resId)
+//    }
+
+    private fun displayImageAsset(fileName: String) {
+        assets.open(fileName).use {
+            val drawable = Drawable.createFromStream(it, null)
+            binding.monsterImage.setImageDrawable(drawable)
+        }
+
     }
 }
 
